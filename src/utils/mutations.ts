@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { addPost } from "./api";
+import { addPost, loginUser } from "./api";
 import { queryClient } from "./queryClient";
 
 export const useAddPost = () => {
@@ -14,5 +14,11 @@ export const useAddPost = () => {
         onError: (error) => {
             alert(error.message);
         },
+    });
+};
+
+export const useLogin = () => {
+    return useMutation({
+        mutationFn: loginUser,
     });
 };

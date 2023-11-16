@@ -45,3 +45,23 @@ export const addPost = async (data: IDataPost): Promise<IRequest<Post>> => {
     const results = await api.post("/post", data);
     return results.data;
 };
+
+interface LoginUserResponse {
+    body: {
+        token: string;
+    };
+    message: string;
+}
+
+export const loginUser = async (data: {
+    email: string;
+    password: string;
+}): Promise<LoginUserResponse> => {
+    try {
+        const results = await api.post("/login", data);
+        return results.data;
+    } catch (error: any) {
+        console.log(error);
+        throw error.response.data.message;
+    }
+};

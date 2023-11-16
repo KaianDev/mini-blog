@@ -1,8 +1,15 @@
-import { Card, CardDescription, CardHeader, CardTitle } from "./card";
+import LoginArea from "./LoginArea";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "./card";
 
 export const Header = () => {
     return (
-        <Card >
+        <Card>
             <CardHeader>
                 <CardTitle className="text-center text-3xl">
                     Mini Blog
@@ -11,6 +18,9 @@ export const Header = () => {
                     Uma descrição qualquer
                 </CardDescription>
             </CardHeader>
+            <CardContent>
+                <LoginArea />
+            </CardContent>
         </Card>
     );
 };

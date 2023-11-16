@@ -1,5 +1,4 @@
 import { useCount, usePost } from "@/utils/queries";
-import PostItem from "./PostItem";
 import { Button } from "./button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
@@ -10,7 +9,6 @@ const PostArea = () => {
     const [start, setStart] = useState(0);
     const count = useCount();
     const { data, isFetching } = usePost(start * limit, limit);
-    
 
     const handleNextPageButton = () => {
         setStart((prev) => prev + 1);
@@ -25,11 +23,17 @@ const PostArea = () => {
     const disabledPrev = start === 0;
 
     return (
-        <section className="flex flex-col">
+        <section className="flex flex-col h-full">
             {isFetching && (
                 <div className="max-w-4xl mx-auto">Carregando...</div>
             )}
-            {data && data.body && !isFetching && <PostList posts={data.body} />}
+
+            {data && data.body && !isFetching && (
+                <div className="flex-1">
+                    <PostList posts={data.body} />
+                </div>
+            )}
+
             {!isFetching && (
                 <div className="flex justify-center gap-4 my-4 items-center">
                     <Button
