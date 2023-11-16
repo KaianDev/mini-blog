@@ -2,27 +2,24 @@
 import ModalForm from "@/components/ui/ModalForm";
 import PostArea from "@/components/ui/PostArea";
 import { Button } from "@/components/ui/button";
-import { checkToken } from "@/utils/checkToken";
-import { usePostContext } from "@/utils/context";
+import { useBlogAuth } from "@/utils/authContext";
+import { usePostContext } from "@/utils/postContext";
 import { PlusIcon } from "lucide-react";
-import { useState } from "react";
 
 function Home() {
     const postCtx = usePostContext();
-    const [token, setToken] = useState<string>(
-        localStorage.getItem("blogAuth") || ""
-    );
+
     const handleShowModal = () => {
         postCtx?.openModal();
     };
 
-    const hasToken = checkToken(token);
+    const auth = useBlogAuth();
 
     return (
         <div className="bg-slate-800 h-full flex flex-col w-full p-3 text-white">
             <PostArea />
 
-            {hasToken?.admin && (
+            {auth?.token && (
                 <Button
                     onClick={handleShowModal}
                     variant="secondary"

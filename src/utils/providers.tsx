@@ -1,9 +1,10 @@
 "use client";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { ReactNode, createContext, useState } from "react";
+import { ReactNode } from "react";
 import { queryClient } from "./queryClient";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools/production";
-import { PostContextProvider } from "./context";
+import { PostContextProvider } from "./postContext";
+import { AuthProvider } from "./authContext";
 
 interface ProvidersProps {
     children: ReactNode;
@@ -12,7 +13,9 @@ interface ProvidersProps {
 export const Providers = ({ children }: ProvidersProps) => {
     return (
         <QueryClientProvider client={queryClient}>
-            <PostContextProvider>{children}</PostContextProvider>
+            <AuthProvider>
+                <PostContextProvider>{children}</PostContextProvider>
+            </AuthProvider>
             <ReactQueryDevtools />
         </QueryClientProvider>
     );

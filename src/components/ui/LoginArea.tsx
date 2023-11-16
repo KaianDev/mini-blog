@@ -2,26 +2,23 @@
 import { MenuIcon } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "./sheet";
 import LoginForm from "./LoginForm";
-import { useState } from "react";
 import { Button } from "./button";
-import { checkToken } from "@/utils/checkToken";
+import { useBlogAuth } from "@/utils/authContext";
 
 const LoginArea = () => {
-    const [token, setToken] = useState<string>(
-        localStorage.getItem("blogAuth") || ""
-    );
-    const hasToken = checkToken(token);
+    const auth = useBlogAuth();
+
     return (
         <Sheet>
             <SheetTrigger>
                 <MenuIcon />
             </SheetTrigger>
             <SheetContent side="left">
-                {!token && <LoginForm />}
+                {!auth?.token && <LoginForm />}
 
-                {token && (
+                {auth?.token && (
                     <div>
-                        <h1>Bem vindo {hasToken?.name}</h1>
+                        <h1>Bem vindo {auth.checkToken().name}</h1>
                         <Button
                             onClick={() => {
                                 localStorage.removeItem("blogAuth");

@@ -39,6 +39,7 @@ interface IDataPost {
     title: string;
     body: string;
     authorId: string;
+    userId: string;
 }
 
 export const addPost = async (data: IDataPost): Promise<IRequest<Post>> => {

@@ -6,7 +6,8 @@ import { Textarea } from "./textarea";
 
 import { FormEvent, useRef } from "react";
 import { useAddPost } from "@/utils/mutations";
-import { usePostContext } from "@/utils/context";
+import { usePostContext } from "@/utils/postContext";
+import { useBlogAuth } from "@/utils/authContext";
 
 const PostForm = () => {
     const postCtx = usePostContext();
@@ -14,6 +15,8 @@ const PostForm = () => {
     const handleCloseModal = () => {
         postCtx?.closeModal();
     };
+
+    const auth = useBlogAuth();
 
     const { data } = useAuthor();
     const titleInput = useRef<null | HTMLInputElement>(null);
@@ -29,16 +32,24 @@ const PostForm = () => {
             titleInput.current?.value &&
             bodyInput.current?.value
         ) {
-            const data = {
-                title: titleInput.current.value,
-                body: bodyInput.current.value,
-                authorId: authorInput.current.value,
-            };
-            addPost.mutate(data);
-            handleCloseModal();
-            authorInput.current.value = "";
-            titleInput.current.value = "";
-            bodyInput.current.value = "";
+            if (auth && auth.checkToken()) {
+                const id = auth.checkToken()?.id;
+                if (id) {
+                    const data = {
+                        title: titleInput.current.value,
+                        body: bodyInput.current.value,
+                        authorId: authorInput.current.value,
+                        userId: id,
+                    };
+                    addPost.mutate(data);
+                    handleCloseModal();
+                    authorInput.current.value = "";
+                    titleInput.current.value = "";
+                    bodyInput.current.value = "";
+
+                    location.reload();
+                }
+            }
         } else {
             handleCloseModal();
         }
