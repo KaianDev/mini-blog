@@ -18,6 +18,7 @@ const PostForm = () => {
 
     const auth = useBlogAuth();
     const authId = auth?.checkToken()?.id;
+    const token = auth?.token;
 
     const { data } = useAuthor();
     const titleInput = useRef<null | HTMLInputElement>(null);
@@ -33,12 +34,13 @@ const PostForm = () => {
             titleInput.current?.value &&
             bodyInput.current?.value
         ) {
-            if (authId) {
+            if (authId && token) {
                 const data = {
                     title: titleInput.current.value,
                     body: bodyInput.current.value,
                     authorId: authorInput.current.value,
                     userId: authId,
+                    token,
                 };
                 addPost.mutate(data);
                 handleCloseModal();

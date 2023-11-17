@@ -5,6 +5,7 @@ import PostItem from "./components/PostItem";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { BackToHomeButton } from "@/components/ui/BackToHomeButton";
 
 interface AuthorPageProps {
     params: {
@@ -48,9 +49,7 @@ const AuthorPage = ({ params }: AuthorPageProps) => {
                                     Quantidade de Post:{" "}
                                     {author.data.body.posts.length}
                                 </p>
-                                <Link href="/">
-                                    <Button>Voltar para o Home</Button>
-                                </Link>
+                                <BackToHomeButton />
                             </div>
                         </div>
                     )}

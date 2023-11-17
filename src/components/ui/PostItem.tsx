@@ -16,7 +16,7 @@ const PostItem = ({ post }: PostItemProps) => {
     const canEdit = auth?.checkToken()?.admin || post.userId === Number(id);
 
     return (
-        <div className="p-4 bg-slate-950 flex flex-col gap-2 hover:scale-[1.02] ease-in duration-200">
+        <div className="p-4 bg-slate-950 h-[190px] flex flex-col gap-2 hover:scale-[1.02] ease-in duration-200">
             <div>
                 <h3 className="text-lg leading-none font-semibold">
                     {post.title}
@@ -26,10 +26,10 @@ const PostItem = ({ post }: PostItemProps) => {
                 </small>
             </div>
 
-            <p className="text-sm w-11/12 sm:w-full break-words flex-1">
+            <p className="text-sm break-words sm:w-full flex-1 line-clamp-3 ">
                 {post.body}
             </p>
-            <div className="flex justify-between item-center">
+            <div className="flex justify-between">
                 <div className="flex gap-2 items-center">
                     <Avatar>
                         {post.author.avatar ? (
@@ -48,7 +48,14 @@ const PostItem = ({ post }: PostItemProps) => {
                         {post.author.name}
                     </Link>
                 </div>
-                {canEdit && <button>Editar</button>}
+                <div className="flex gap-4 items-center">
+                    <Link href={`post/${post.id}`}>
+                        <button className="bg-sky-500 px-2 duration-200 py-1 rounded hover:bg-sky-600 text-sm">
+                            Ver mais
+                        </button>
+                    </Link>
+                    {canEdit && <button>Editar</button>}
+                </div>
             </div>
         </div>
     );

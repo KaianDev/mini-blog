@@ -72,7 +72,7 @@ export const loginUser = async (data: {
     }
 };
 
-export const getOnePost = async (id: string): Promise<Post> => {
+export const getOnePost = async (id: string): Promise<IRequest<Post>> => {
     const results = await api.get(`/post/${id}`);
     return results.data;
 };
