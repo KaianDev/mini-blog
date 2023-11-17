@@ -1,4 +1,3 @@
-"use client";
 import { DecodedToken } from "@/interfaces/Decoded";
 import { jwtDecode } from "jwt-decode";
 import {

@@ -6,4 +6,5 @@ export interface Post {
     body: string;
     createAt: string;
     author: Author;
+    userId: number;
 }

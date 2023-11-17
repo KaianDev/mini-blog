@@ -17,6 +17,7 @@ const PostForm = () => {
     };
 
     const auth = useBlogAuth();
+    const authId = auth?.checkToken()?.id;
 
     const { data } = useAuthor();
     const titleInput = useRef<null | HTMLInputElement>(null);
@@ -32,23 +33,20 @@ const PostForm = () => {
             titleInput.current?.value &&
             bodyInput.current?.value
         ) {
-            if (auth && auth.checkToken()) {
-                const id = auth.checkToken()?.id;
-                if (id) {
-                    const data = {
-                        title: titleInput.current.value,
-                        body: bodyInput.current.value,
-                        authorId: authorInput.current.value,
-                        userId: id,
-                    };
-                    addPost.mutate(data);
-                    handleCloseModal();
-                    authorInput.current.value = "";
-                    titleInput.current.value = "";
-                    bodyInput.current.value = "";
+            if (authId) {
+                const data = {
+                    title: titleInput.current.value,
+                    body: bodyInput.current.value,
+                    authorId: authorInput.current.value,
+                    userId: authId,
+                };
+                addPost.mutate(data);
+                handleCloseModal();
+                authorInput.current.value = "";
+                titleInput.current.value = "";
+                bodyInput.current.value = "";
 
-                    location.reload();
-                }
+                location.reload();
             }
         } else {
             handleCloseModal();
