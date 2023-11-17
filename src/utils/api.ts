@@ -40,10 +40,15 @@ interface IDataPost {
     body: string;
     authorId: string;
     userId: string;
+    token: string;
 }
 
 export const addPost = async (data: IDataPost): Promise<IRequest<Post>> => {
-    const results = await api.post("/post", data);
+    const results = await api.post("/post", data, {
+        headers: {
+            Authorization: `Bearer ${data.token}`,
+        },
+    });
     return results.data;
 };
 
@@ -65,4 +70,9 @@ export const loginUser = async (data: {
         console.log(error);
         throw error.response.data.message;
     }
+};
+
+export const getOnePost = async (id: string): Promise<Post> => {
+    const results = await api.get(`/post/${id}`);
+    return results.data;
 };

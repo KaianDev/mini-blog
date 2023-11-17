@@ -3,7 +3,13 @@ import {
     useInfiniteQuery,
     useQuery,
 } from "@tanstack/react-query";
-import { getAuthor, getCountPost, getOneAuthor, getPost } from "./api";
+import {
+    getAuthor,
+    getCountPost,
+    getOneAuthor,
+    getOnePost,
+    getPost,
+} from "./api";
 
 export const usePost = (start: number = 0, limit?: number) => {
     return useQuery({
@@ -34,6 +40,14 @@ export const useOneAuthor = (id: string) => {
     return useQuery({
         queryKey: ["author", id],
         queryFn: () => getOneAuthor(id),
+        staleTime: Infinity,
+    });
+};
+
+export const useOnePost = (id: string) => {
+    return useQuery({
+        queryKey: ["post", id],
+        queryFn: () => getOnePost(id),
         staleTime: Infinity,
     });
 };
