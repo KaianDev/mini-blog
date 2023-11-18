@@ -3,6 +3,7 @@ import { Button } from "./button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import PostList from "./PostList";
+import SpinLoading from "./SpinLoading";
 
 const PostArea = () => {
     const limit = 10;
@@ -24,9 +25,7 @@ const PostArea = () => {
 
     return (
         <section className="flex flex-col h-full">
-            {isFetching && (
-                <div className="max-w-4xl mx-auto">Carregando...</div>
-            )}
+            {isFetching && <SpinLoading />}
 
             {data && data.body && !isFetching && (
                 <div className="flex-1">
@@ -38,15 +37,13 @@ const PostArea = () => {
                 <div className="flex justify-center gap-4 my-4 items-center">
                     <Button
                         disabled={disabledPrev}
-                        onClick={handlePrevPageButton}
-                    >
+                        onClick={handlePrevPageButton}>
                         <ChevronLeft />
                     </Button>
                     <div className="font-bold">{start + 1}</div>
                     <Button
                         onClick={handleNextPageButton}
-                        disabled={disabledNext}
-                    >
+                        disabled={disabledNext}>
                         <ChevronRight />
                     </Button>
                 </div>
