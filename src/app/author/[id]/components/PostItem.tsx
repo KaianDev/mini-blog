@@ -7,7 +7,7 @@ interface PostItemProps {
 
 const PostItem = ({ post }: PostItemProps) => {
     return (
-        <div className="p-4 bg-slate-950 flex flex-col gap-2">
+        <div className="p-4 bg-slate-950 flex flex-col gap-2 overflow-hidden">
             <div>
                 <h3 className="text-lg leading-none font-semibold">
                     {post.title}

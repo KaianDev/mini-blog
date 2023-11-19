@@ -1,10 +1,7 @@
 "use client";
-import { formatDate } from "@/utils/formatDate";
 import { useOneAuthor } from "@/utils/queries";
 import PostItem from "./components/PostItem";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { BackToHomeButton } from "@/components/ui/BackToHomeButton";
 
 interface AuthorPageProps {
